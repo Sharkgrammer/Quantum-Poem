@@ -1,18 +1,34 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import tree from './assets/tree.png'
 import line1 from './assets/line1.png'
 import line2 from './assets/line2.png'
 import line3 from './assets/line3.png'
 import line4 from './assets/line4.png'
+import music from './assets/timberhearth.mp3'
 
 function App() {
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    function audio() {
+
+        console.log(isPlaying);
+
+        if (!isPlaying) {
+            let audio = new Audio(music);
+
+            setIsPlaying(true);
+            audio.play().then(r => setIsPlaying(false));
+        }
+
+    }
+
+    useEffect(audio, []);
+
 
     return (
         <div className="w-full full bg-black flex justify-center px-5">
-
             <QPoem/>
-
         </div>
     )
 }
@@ -21,11 +37,11 @@ function QPoem() {
 
     const [poem, setPoem] = useState(getPoem());
 
-    function getPoem(){
+    function getPoem() {
         const tempPoem = [line1, line2, line3, line4];
         let result = [], randomIndex;
 
-        for (let line in tempPoem){
+        for (let line in tempPoem) {
             randomIndex = Math.floor(Math.random() * (tempPoem.length + 1));
 
             result.splice(randomIndex, 0, tempPoem[line]);
@@ -34,9 +50,10 @@ function QPoem() {
         return result;
     }
 
-    function setPoems(){
+    function setPoems() {
         setPoem(getPoem());
     }
+
 
     return (
         <div className="w-full grid [grid-template-areas:'stack']" onClick={setPoems}>
@@ -49,7 +66,7 @@ function QPoem() {
 
             <div className="[grid-area:stack] w-full">
                 <div className="flex justify-center items-center h-full">
-                    <div className="sm:scale-75" key={poem}>
+                    <div className="sm:scale-75">
                         {poem.map((line, index) => (
                             <img src={line} key={index} alt="Poem Line"/>
                         ))}
