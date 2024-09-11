@@ -1,36 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useState} from 'react'
+
+import tree from './assets/tree.png'
+import line1 from './assets/line1.png'
+import line2 from './assets/line2.png'
+import line3 from './assets/line3.png'
+import line4 from './assets/line4.png'
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-        <h1 className="text-red-500 p-10 m-10 border-2 border-amber-500">Hello</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <div className="w-full full bg-black flex justify-center px-5">
+
+            <QPoem/>
+
+        </div>
+    )
 }
+
+function QPoem() {
+
+    const [poem, setPoem] = useState(getPoem());
+
+    function getPoem(){
+        const tempPoem = [line1, line2, line3, line4];
+        let result = [], randomIndex;
+
+        for (let line in tempPoem){
+            randomIndex = Math.floor(Math.random() * (tempPoem.length + 1));
+
+            result.splice(randomIndex, 0, tempPoem[line]);
+        }
+
+        return result;
+    }
+
+    function setPoems(){
+        setPoem(getPoem());
+    }
+
+    return (
+        <div className="w-full grid [grid-template-areas:'stack']" onClick={setPoems}>
+
+            <div className="[grid-area:stack] w-full">
+                <div className="flex justify-center items-center overflow-hidden">
+                    <img src={tree} className="h-[calc(100dvh)]" alt="Tree"/>
+                </div>
+            </div>
+
+            <div className="[grid-area:stack] w-full">
+                <div className="flex justify-center items-center h-full">
+                    <div className="sm:scale-75" key={poem}>
+                        {poem.map((line, index) => (
+                            <img src={line} key={index} alt="Poem Line"/>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    )
+}
+
 
 export default App
