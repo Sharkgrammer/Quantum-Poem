@@ -117,7 +117,7 @@ function App() {
                 }
             </div>
 
-            <QPoem />
+            <QPoem/>
 
         </div>
     )
