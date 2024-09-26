@@ -155,8 +155,9 @@ function QPoem() {
             </div>
 
             <div className="[grid-area:stack] w-full">
-                <div className="flex justify-center items-center h-full">
-                    <div className="sm:scale-75">
+
+                <div className="flex justify-center items-center h-[calc(100dvh)]">
+                    <div className="scale-100 h-phone:scale-100 h-laptop:scale-50 h-biggest:scale-75">
                         {poem.map((line, index) => (
                             <img src={line} key={index} alt="Poem Line"/>
                         ))}
